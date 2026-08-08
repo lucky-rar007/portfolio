@@ -1526,6 +1526,12 @@ html {
    devices those hovers either "stick" after tap or never fire at all, so
    we disable them here to keep tap feedback consistent. */
 @media (hover: none) and (pointer: coarse) {
+  #hero-bg-fluid,
+  .liquid-ether-container {
+    touch-action: pan-y !important;
+    pointer-events: none !important;
+  }
+
   .pj-link:hover {
     padding-left: 0;
     color: var(--color-text);
