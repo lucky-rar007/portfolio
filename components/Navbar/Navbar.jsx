@@ -118,31 +118,33 @@ function Navbar() {
       </div>
 
       {/* Mobile menu overlay — only rendered on small screens.
-          Uses theme-aware backdrop blur (.menu-backdrop) so background content
-          blurs out softly in both light and dark modes. */}
+          Uses theme-aware backdrop blur so background content blurs out softly
+          in both light and dark modes while menu cards float sharp on top. */}
       <div
         className={`fixed inset-0 z-[100000] lg:hidden transition-opacity duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden={!mobileOpen}
       >
+        {/* Backdrop blur overlay */}
         <div
-          className="menu-backdrop"
+          className="fixed inset-0 bg-white/65 dark:bg-black/75 backdrop-blur-2xl transition-colors duration-300"
           onClick={() => {
             setMobileOpen(false);
             setRotate({ transform: "rotate(0deg)" });
           }}
         />
-        <div className="relative z-10 h-full w-full flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
-          <nav className="flex flex-col gap-1 menu-card p-6">
+        {/* Menu cards container — z-[100002] ensures cards sit sharp above blur */}
+        <div className="relative z-[100002] h-full w-full flex flex-col pt-24 pb-8 px-5 overflow-y-auto">
+          <nav className="flex flex-col gap-1 rounded-3xl bg-white/90 dark:bg-neutral-900/90 text-fg border border-black/10 dark:border-white/15 p-6 shadow-2xl backdrop-blur-md">
             {MOBILE_NAV_ITEMS.map((item, i) => (
               <a
                 key={item.target}
                 href={item.target === "top" ? "#" : `#${item.target}`}
                 onClick={(e) => handleMobileNav(e, item.target)}
-                className="flex items-center justify-between py-4 border-b border-theme-border text-fg text-2xl sm:text-3xl font-semibold transition-colors duration-200 hover:text-brblue"
+                className="flex items-center justify-between py-4 border-b border-black/10 dark:border-white/10 text-fg text-2xl font-bold transition-colors duration-200 hover:text-brblue cursor-pointer"
                 style={{
-                  letterSpacing: "-0.03em",
+                  letterSpacing: "-0.02em",
                   transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
                   opacity: mobileOpen ? 1 : 0,
                   transition: `transform 0.4s ease ${0.05 + i * 0.05}s, opacity 0.4s ease ${
@@ -151,17 +153,17 @@ function Navbar() {
                 }}
               >
                 <span>{item.label}</span>
-                <span className="text-fg-muted text-base">0{i + 1}</span>
+                <span className="text-fg-muted text-sm font-mono">•</span>
               </a>
             ))}
           </nav>
 
-          <div className="mt-4 pt-4 flex flex-col gap-3 menu-card p-6">
-            <p className="text-fg-muted text-xs tracking-[0.2em] uppercase">Get in touch</p>
+          <div className="mt-4 pt-4 flex flex-col gap-3 rounded-3xl bg-white/90 dark:bg-neutral-900/90 text-fg border border-black/10 dark:border-white/15 p-6 shadow-2xl backdrop-blur-md">
+            <p className="text-fg-muted text-xs tracking-[0.2em] uppercase font-semibold">Get in touch</p>
             <a
               href={`mailto:${EMAIL}`}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between bg-fg text-bg rounded-full px-5 py-4 text-sm tracking-[0.2em] font-semibold"
+              className="flex items-center justify-between bg-fg text-bg rounded-2xl px-5 py-4 text-sm tracking-[0.2em] font-semibold transition-transform duration-200 hover:scale-[1.02]"
             >
               <span>EMAIL</span>
               <span aria-hidden="true">↗</span>
@@ -171,7 +173,7 @@ function Navbar() {
               target="_blank"
               rel="noreferrer"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between border-2 border-fg text-fg rounded-full px-5 py-4 text-sm tracking-[0.2em] font-semibold"
+              className="flex items-center justify-between border-2 border-fg text-fg rounded-2xl px-5 py-4 text-sm tracking-[0.2em] font-semibold transition-transform duration-200 hover:scale-[1.02]"
             >
               <span>WHATSAPP</span>
               <span aria-hidden="true">↗</span>
