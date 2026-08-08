@@ -76,7 +76,7 @@ export default function Home() {
         </div>
       }
     >
-      <div className="bg-bg text-fg h-auto w-screen overflow-x-hidden">
+      <div className="bg-bg text-fg h-auto w-full max-w-full overflow-x-hidden">
         <Navbar />
 
         <HeroSection />

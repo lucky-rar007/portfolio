@@ -87,6 +87,8 @@ const HeroSection = () => {
       if (typeof window === "undefined" || !sectionRef.current) return;
       const isTouch =
         window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
         window.innerWidth < 1024;
       // On touch devices, disable parallax-js so touchmove gestures natively scroll the page
       if (isTouch) return;
@@ -118,6 +120,10 @@ const HeroSection = () => {
       onComplete: () => {
         setLoaderDone(true);
         document.body.style.overflow = "";
+        if (loaderRef.current) {
+          loaderRef.current.style.display = "none";
+          loaderRef.current.style.pointerEvents = "none";
+        }
         initParallax();
       },
     });
@@ -143,6 +149,10 @@ const HeroSection = () => {
       ease: "power3.out",
       onComplete: () => {
         document.body.style.overflow = "";
+        if (loaderRef.current) {
+          loaderRef.current.style.display = "none";
+          loaderRef.current.style.pointerEvents = "none";
+        }
       },
     }, "anim+=2.2");
 

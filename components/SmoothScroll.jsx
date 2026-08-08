@@ -12,6 +12,8 @@ const SmoothScroll = ({ children }) => {
     const isTouch =
       typeof window !== "undefined" &&
       (window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
         window.innerWidth < 1024);
 
     // Ensure body style overflow is never stuck
