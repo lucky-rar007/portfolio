@@ -36,10 +36,38 @@ const HeroSection = () => {
   const endLineRef = useRef(null);
   const parallaxInstanceRef = useRef(null);
   const [loaderDone, setLoaderDone] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile =
+        typeof window !== "undefined" &&
+        (window.innerWidth < 768 ||
+          window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+          "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0);
+      setIsMobileDevice(mobile);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    document.body.style.overflow = "hidden";
+
+    const isTouch =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 ||
+        window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0);
+
+    if (!isTouch) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
     const headingChars = headingRef.current.querySelectorAll(".hero-char");
 
@@ -232,27 +260,29 @@ const HeroSection = () => {
 
       {/* Hero — direct children of #hero-section are parallax layers.
           Each layer's `data-depth` controls how much it moves with the cursor. */}
-      <div id="hero-section" ref={sectionRef}>
-        {/* Animated fluid background. Not a `.hero-layer` so parallax-js skips it. */}
-        <div id="hero-bg-fluid">
-          <LiquidEther
-            colors={HERO_LIQUID_COLORS}
-            mouseForce={20}
-            cursorSize={100}
-            isViscous={false}
-            viscous={30}
-            iterationsViscous={32}
-            iterationsPoisson={32}
-            resolution={0.5}
-            isBounce={false}
-            autoDemo={true}
-            autoSpeed={0.5}
-            autoIntensity={2.2}
-            takeoverDuration={0.25}
-            autoResumeDelay={3000}
-            autoRampDuration={0.6}
-          />
-        </div>
+      <div id="hero-section" ref={sectionRef} style={{ touchAction: "pan-y" }}>
+        {/* Animated fluid background. Only rendered on desktop/PC */}
+        {!isMobileDevice && (
+          <div id="hero-bg-fluid">
+            <LiquidEther
+              colors={HERO_LIQUID_COLORS}
+              mouseForce={20}
+              cursorSize={100}
+              isViscous={false}
+              viscous={30}
+              iterationsViscous={32}
+              iterationsPoisson={32}
+              resolution={0.5}
+              isBounce={false}
+              autoDemo={true}
+              autoSpeed={0.5}
+              autoIntensity={2.2}
+              takeoverDuration={0.25}
+              autoResumeDelay={3000}
+              autoRampDuration={0.6}
+            />
+          </div>
+        )}
 
         {/* Back stroke (behind heading) */}
         <div className="hero-layer" data-depth="0.20" style={{ zIndex: 4 }}>

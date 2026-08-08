@@ -216,6 +216,17 @@ html {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  #loader {
+    align-items: center;
+    justify-content: center;
+  }
+  #loader-counter {
+    font-size: 16vw;
+    padding: 0;
+  }
+}
+
 /* ── HERO SECTION ── */
 
 #hero-section {
@@ -224,6 +235,7 @@ html {
   position: relative;
   overflow: hidden;
   background-color: var(--color-bg);
+  touch-action: pan-y;
 }
 
 /* Parallax layer wrappers — direct children of #hero-section.
@@ -236,6 +248,7 @@ html {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  touch-action: pan-y;
   will-change: transform;
 }
 
@@ -251,6 +264,13 @@ html {
   z-index: 1;
   pointer-events: none;
   opacity: 0.25;
+  touch-action: pan-y;
+}
+
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  #hero-bg-fluid {
+    display: none !important;
+  }
 }
 
 /* End-of-hero indicator line */

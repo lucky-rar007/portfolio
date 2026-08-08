@@ -36,6 +36,14 @@ export default function LiquidEther({
   useEffect(() => {
     if (!mountRef.current) return;
 
+    const isMobileDevice =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 ||
+        window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0);
+    if (isMobileDevice) return;
+
     function makePaletteTexture(stops) {
       let arr;
       if (Array.isArray(stops) && stops.length > 0) {

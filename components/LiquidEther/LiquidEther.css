@@ -6,9 +6,10 @@
   touch-action: pan-y;
 }
 
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
   .liquid-ether-container {
-    pointer-events: none;
-    touch-action: pan-y;
+    display: none !important;
+    pointer-events: none !important;
+    touch-action: pan-y !important;
   }
 }
