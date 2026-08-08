@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 // Inter is the single typeface used everywhere on the site. Loading it through
@@ -43,6 +44,19 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9D7TT129KD"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-9D7TT129KD');
+          `}
+        </Script>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
