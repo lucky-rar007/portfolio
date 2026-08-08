@@ -11,7 +11,7 @@ const HERO_LIQUID_COLORS = ["#D9E6FF"];
 
 const SplitChars = ({ text, className, id }) => {
   return (
-    <span className={className} id={id}>
+    <span className={`whitespace-nowrap ${className || ""}`} id={id}>
       {text.split("").map((char, i) => (
         <span
           key={i}

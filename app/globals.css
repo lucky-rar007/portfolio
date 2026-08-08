@@ -1321,11 +1321,15 @@ html {
 
 @media (max-width: 480px) {
   #hero-heading {
-    font-size: clamp(3rem, 17vw, 5.5rem);
+    font-size: clamp(2rem, 14vw, 4.5rem);
+    white-space: nowrap;
+    word-break: keep-all;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 94%;
+    width: auto;
+    max-width: 96vw;
+    text-align: center;
   }
 
   #hero-img {

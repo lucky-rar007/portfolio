@@ -77,18 +77,17 @@ function Navbar() {
   return (
     <>
       {/* Navbar small screen */}
-      {/* z-[100001] keeps the navbar (and the dropdown menu it contains) on
-          top of every other layer — including the footer (z: 100000) and
-          the GradualBlur overlay (z: 99999) — so the menu is always
-          accessible and never clipped by another stacking context. */}
-      <div className="fixed top-0 left-0 z-[100001] w-full py-5 lg:hidden px-5">
+      {/* z-[100001] keeps the navbar on top of every other layer.
+          backdrop-blur-md and bg-bg/85 ensure content behind the header bar
+          doesn't collide or overlap awkwardly on mobile scroll. */}
+      <div className="fixed top-0 left-0 z-[100001] w-full py-3 px-4 lg:hidden backdrop-blur-md bg-bg/85 border-b border-black/5 dark:border-white/10 transition-colors duration-300">
         <div className="flex items-center justify-between w-full font-extrabold">
           <Link
             href="/"
             aria-label="Home"
             onClick={(e) => handleMobileNav(e, "top")}
-            className="tracking-wider font-semibold text-2xl cursor-pointer text-fg"
-            style={{ letterSpacing: "-0.03em" }}
+            className="tracking-wider font-semibold text-sm sm:text-base cursor-pointer text-fg truncate max-w-[70vw]"
+            style={{ letterSpacing: "-0.01em" }}
           >
             LAKSHRAJ SINGH CHUNDAWAT
           </Link>
@@ -96,7 +95,7 @@ function Navbar() {
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
-            className="nav_btn_sm flex items-center justify-center cursor-pointer"
+            className="nav_btn_sm flex items-center justify-center cursor-pointer flex-shrink-0"
             onMouseEnter={() => !mobileOpen && setRotate({ transform: "rotate(90deg)" })}
             onMouseLeave={() => !mobileOpen && setRotate({ transform: "rotate(0deg)" })}
             onClick={() => {
