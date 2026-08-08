@@ -86,33 +86,40 @@ function Navbar() {
             href="/"
             aria-label="Home"
             onClick={(e) => handleMobileNav(e, "top")}
-            className="tracking-wider font-semibold text-sm sm:text-base cursor-pointer text-fg truncate max-w-[70vw]"
+            className="tracking-wider font-semibold text-sm sm:text-base cursor-pointer text-fg truncate max-w-[55vw]"
             style={{ letterSpacing: "-0.01em" }}
           >
             LAKSHRAJ SINGH CHUNDAWAT
           </Link>
-          <button
-            type="button"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            className="nav_btn_sm flex items-center justify-center cursor-pointer flex-shrink-0"
-            onMouseEnter={() => !mobileOpen && setRotate({ transform: "rotate(90deg)" })}
-            onMouseLeave={() => !mobileOpen && setRotate({ transform: "rotate(0deg)" })}
-            onClick={() => {
-              const next = !mobileOpen;
-              setMobileOpen(next);
-              setRotate({ transform: next ? "rotate(45deg)" : "rotate(0deg)" });
-            }}
-          >
-            <animated.div className="text-[0.55rem] leading-none" style={rotate}>
-              {mobileOpen ? "✕" : "⬤ ⬤"}
-            </animated.div>
-          </button>
+          
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Theme Switcher Button for Mobile */}
+            <MusicButton />
+            
+            <button
+              type="button"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              className="nav_btn_sm flex items-center justify-center cursor-pointer"
+              onMouseEnter={() => !mobileOpen && setRotate({ transform: "rotate(90deg)" })}
+              onMouseLeave={() => !mobileOpen && setRotate({ transform: "rotate(0deg)" })}
+              onClick={() => {
+                const next = !mobileOpen;
+                setMobileOpen(next);
+                setRotate({ transform: next ? "rotate(45deg)" : "rotate(0deg)" });
+              }}
+            >
+              <animated.div className="text-[0.55rem] leading-none" style={rotate}>
+                {mobileOpen ? "✕" : "⬤ ⬤"}
+              </animated.div>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu overlay — only rendered on small screens. Covers the
-          viewport below the navbar with navigation + contact buttons. */}
+      {/* Mobile menu overlay — only rendered on small screens.
+          Uses theme-aware backdrop blur (.menu-backdrop) so background content
+          blurs out softly in both light and dark modes. */}
       <div
         className={`fixed inset-0 z-[100000] lg:hidden transition-opacity duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -120,20 +127,20 @@ function Navbar() {
         aria-hidden={!mobileOpen}
       >
         <div
-          className="absolute inset-0 bg-bg"
+          className="menu-backdrop"
           onClick={() => {
             setMobileOpen(false);
             setRotate({ transform: "rotate(0deg)" });
           }}
         />
-        <div className="relative z-10 h-full w-full flex flex-col pt-24 pb-8 px-6">
-          <nav className="flex flex-col gap-1">
+        <div className="relative z-10 h-full w-full flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
+          <nav className="flex flex-col gap-1 menu-card p-6">
             {MOBILE_NAV_ITEMS.map((item, i) => (
               <a
                 key={item.target}
                 href={item.target === "top" ? "#" : `#${item.target}`}
                 onClick={(e) => handleMobileNav(e, item.target)}
-                className="flex items-center justify-between py-4 border-b border-theme-border text-fg text-3xl font-semibold transition-colors duration-200 hover:text-brblue"
+                className="flex items-center justify-between py-4 border-b border-theme-border text-fg text-2xl sm:text-3xl font-semibold transition-colors duration-200 hover:text-brblue"
                 style={{
                   letterSpacing: "-0.03em",
                   transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
@@ -149,7 +156,7 @@ function Navbar() {
             ))}
           </nav>
 
-          <div className="mt-auto pt-8 flex flex-col gap-3">
+          <div className="mt-4 pt-4 flex flex-col gap-3 menu-card p-6">
             <p className="text-fg-muted text-xs tracking-[0.2em] uppercase">Get in touch</p>
             <a
               href={`mailto:${EMAIL}`}
