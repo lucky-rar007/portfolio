@@ -56,7 +56,6 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
-  user-drag: none;
 }
 
 html, body {
@@ -95,20 +94,31 @@ html {
   scrollbar-width: none;
 }
 
-.nav_btn_lg{
-  @apply rounded-full px-5 h-10 font-[600] text-sm mx-2 font-AeonikMedium
+.nav_btn_lg {
+  border-radius: 9999px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  height: 2.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
-.nav_btn_dark{
+.nav_btn_dark {
   background-color: var(--color-btn-dark-bg);
   color: var(--color-btn-dark-text);
 }
-.nav_btn_light{
+.nav_btn_light {
   color: var(--color-btn-light-text);
   background-color: var(--color-btn-light-bg);
 }
 
-.nav_btn_sm{
-  @apply rounded-full w-10 h-10 mx-2;
+.nav_btn_sm {
+  border-radius: 9999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   background-color: var(--color-btn-sm-bg);
   color: var(--color-btn-light-text);
 }
