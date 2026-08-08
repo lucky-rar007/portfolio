@@ -14,8 +14,18 @@ const SmoothScroll = ({ children }) => {
       (window.matchMedia("(hover: none), (pointer: coarse)").matches ||
         window.innerWidth < 1024);
 
+    // Ensure body style overflow is never stuck
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+    }
+
+    // On mobile touch devices, native touch scrolling is butter smooth and 100% reliable.
+    if (isTouch) {
+      return;
+    }
+
     const lenis = new Lenis({
-      duration: isTouch ? 1.0 : 1.2,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',

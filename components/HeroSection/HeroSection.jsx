@@ -139,6 +139,9 @@ const HeroSection = () => {
       y: "-100%",
       duration: 1.8,
       ease: "power3.out",
+      onComplete: () => {
+        document.body.style.overflow = "";
+      },
     }, "anim+=2.2");
 
     // Counter fade out
