@@ -28,7 +28,7 @@ export const metadata = {
 const themeBootstrap = `
 (function () {
   try {
-    var saved = localStorage.getItem('theme');
+    var saved = sessionStorage.getItem('theme');
     var theme = saved === 'dark' ? 'dark' : 'light';
     document.documentElement.dataset.theme = theme;
   } catch (e) {

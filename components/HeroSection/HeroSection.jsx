@@ -88,18 +88,20 @@ const HeroSection = () => {
       const isTouch =
         window.matchMedia("(hover: none), (pointer: coarse)").matches ||
         window.innerWidth < 1024;
+      // On touch devices, disable parallax-js so touchmove gestures natively scroll the page
+      if (isTouch) return;
       try {
         const mod = await import("parallax-js");
         const Parallax = mod.default || mod;
         if (!sectionRef.current) return;
         parallaxInstanceRef.current = new Parallax(sectionRef.current, {
           relativeInput: true,
-          hoverOnly: !isTouch,
+          hoverOnly: true,
           selector: ".hero-layer",
-          scalarX: isTouch ? 4 : 2,
-          scalarY: isTouch ? 4 : 2,
-          frictionX: isTouch ? 0.18 : 0.1,
-          frictionY: isTouch ? 0.18 : 0.1,
+          scalarX: 2,
+          scalarY: 2,
+          frictionX: 0.1,
+          frictionY: 0.1,
         });
       } catch (err) {
         console.error("Failed to init parallax-js:", err);

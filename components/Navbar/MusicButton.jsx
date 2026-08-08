@@ -70,7 +70,7 @@ const ThemeButton = () => {
         document.documentElement.dataset.theme = next;
       }
       try {
-        localStorage.setItem('theme', next);
+        sessionStorage.setItem('theme', next);
       } catch (err) {
         // ignore storage errors
       }

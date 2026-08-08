@@ -1527,8 +1527,14 @@ html {
    we disable them here to keep tap feedback consistent. */
 @media (hover: none) and (pointer: coarse) {
   #hero-bg-fluid,
-  .liquid-ether-container {
+  .liquid-ether-container,
+  #hero-section,
+  .hero-layer {
     touch-action: pan-y !important;
+  }
+
+  #hero-bg-fluid,
+  .liquid-ether-container {
     pointer-events: none !important;
   }
 
