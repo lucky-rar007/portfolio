@@ -55,13 +55,21 @@
 * {
   user-select: none;
   -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+img, svg, video {
+  pointer-events: none;
+  max-width: 100%;
   -webkit-user-drag: none;
 }
 
 html, body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: auto;
   overflow-x: hidden;
   width: 100%;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -632,6 +640,15 @@ html {
   width: 3vw;
   height: 3vw;
   transition: transform 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .pj-arrow {
+    width: 2rem !important;
+    height: 2rem !important;
+    min-width: 2rem;
+    min-height: 2rem;
+  }
 }
 
 .pj-link:hover .pj-arrow {

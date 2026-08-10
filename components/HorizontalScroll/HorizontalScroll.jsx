@@ -59,20 +59,27 @@ const HorizontalScroll = () => {
         },
       });
 
-      chars.forEach((char) => {
-        gsap.from(char, {
-          yPercent: gsap.utils.random(-200, 200),
-          rotation: gsap.utils.random(-20, 20),
-          ease: "back.out(1.2)",
-          scrollTrigger: {
-            trigger: char,
-            containerAnimation: scrollTween,
-            start: "left 100%",
-            end: "left 30%",
-            scrub: 1,
-          },
+      const isMobile =
+        window.innerWidth < 768 ||
+        window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+      // On desktop, add random 3D rotations per character. On mobile, skip to keep touch scroll fast and smooth.
+      if (!isMobile) {
+        chars.forEach((char) => {
+          gsap.from(char, {
+            yPercent: gsap.utils.random(-200, 200),
+            rotation: gsap.utils.random(-20, 20),
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: char,
+              containerAnimation: scrollTween,
+              start: "left 100%",
+              end: "left 30%",
+              scrub: 1,
+            },
+          });
         });
-      });
+      }
     }, wrapper);
 
     return () => ctx.revert();

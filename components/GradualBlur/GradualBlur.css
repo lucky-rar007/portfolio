@@ -29,6 +29,13 @@
   pointer-events: none;
   z-index: 1000;
 }
+
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .gradual-blur,
+  .gradual-blur-fixed {
+    display: none !important;
+  }
+}
 .gradual-blur-inner {
   position: relative;
   width: 100%;

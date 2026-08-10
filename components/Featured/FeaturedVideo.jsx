@@ -149,15 +149,32 @@ const GlassArtformCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full bg-transparent flex items-center justify-center cursor-grab active:cursor-grabbing pointer-events-auto"
+      className="relative w-full h-full bg-transparent flex items-center justify-center cursor-grab active:cursor-grabbing pointer-events-none md:pointer-events-auto touch-pan-y"
+      style={{ touchAction: "pan-y" }}
     >
-      <canvas ref={canvasRef} className="w-full h-full block bg-transparent" />
+      <canvas ref={canvasRef} className="w-full h-full block bg-transparent" style={{ touchAction: "pan-y" }} />
     </div>
   );
 };
 
 const FeaturedVideo = ({ refForward, ...props }) => {
   const ref = useRef(null);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile =
+        typeof window !== "undefined" &&
+        (window.innerWidth < 768 ||
+          window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+          "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0);
+      setIsMobileDevice(mobile);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const variants = {
     initial: { scale: 1, x: 0, y: 0 },
@@ -183,7 +200,17 @@ const FeaturedVideo = ({ refForward, ...props }) => {
       className="relative md:absolute mx-auto md:mx-0 mt-8 md:mt-0 md:top-[26vh] md:right-8 lg:right-16 md:left-auto md:translate-x-0 md:translate-y-0 z-30 w-[82vw] md:w-[42vw] max-w-[22rem] md:max-w-[540px] aspect-[3/4] md:aspect-[856/1024] bg-transparent outline-none"
       {...props}
     >
-      <GlassArtformCanvas />
+      {!isMobileDevice ? (
+        <GlassArtformCanvas />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-transparent pointer-events-none">
+          <img
+            src="/featured_glass_mobile.png"
+            alt="Featured Artwork"
+            className="w-full h-full object-contain pointer-events-none filter drop-shadow-2xl"
+          />
+        </div>
+      )}
     </motion.div>
   );
 };
