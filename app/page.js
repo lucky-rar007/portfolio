@@ -130,15 +130,7 @@ export default function Home() {
           <Experience className="w-full h-full rounded-3xl" />
         </div> */}
         {/* <div className="bg-brblue flex items-center justify-center w-full h-screen font-extrabold text-9xl"> this is the footer  </div> */}
-        {/* <div className="relative">
-          <div className="absolute text-9xl font-bold text-center w-full h-full top-80">
-            HIRE       ME
-          </div>
-          <Footer />
-          <div className="absolute text-3xl font-bold text-center w-full h-full top-[40rem]">
-            made by mtarif
-          </div>
-        </div> */}
+
       </div>
     </Suspense>
     </SmoothScroll>
